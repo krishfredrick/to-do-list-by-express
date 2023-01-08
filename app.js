@@ -5,7 +5,7 @@ require('dotenv').config()
 const tasks = require('./routes/tasks')
 const notfound = require('./middlewares/not_found');
 const notFound = require('./middlewares/not_found');
-
+const errorHandlerMiddleware = require('./middlewares/err-handler.js')
 // middleware
 app.use(express.json())
 app.use(express.static('./public'))
@@ -20,6 +20,8 @@ app.get('/hello', (req,res)=>{
 
 // app.get('/api/v1/tasks')         - get all the tasks
 app.use('/api/v1/tasks', tasks)
+
+app.use(errorHandlerMiddleware)
 
 const port = process.env.PORT
 const start = async () =>{
